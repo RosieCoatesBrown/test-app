@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-export default function Home({data}) {
+export default function Home({data, body}) {
   return (
     <div className={styles.container}>
       <Head>
@@ -16,6 +16,7 @@ export default function Home({data}) {
           Welcome to <a href="https://nextjs.org">Co-op!</a>
         </h1>
         <h2>{data}</h2>
+        <p>{JSON.stringify(body)}</p>
 
         <p className={styles.description}>
           Get started by editing{' '}
@@ -71,9 +72,12 @@ export default function Home({data}) {
 
 export async function getServerSideProps(context) {
   const data = `hello the time is ${Date.now()}`
+  const response = await fetch("https://jsonplaceholder.typicode.com/todos/1")
+  const body = await response.json()
   return {
     props: {
-      data
+      data,
+      body
     },
   }
 }
