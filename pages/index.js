@@ -72,8 +72,10 @@ export default function Home({data, body}) {
 
 export async function getServerSideProps(context) {
   const data = `hello the time is ${Date.now()}`
-  const response = await fetch("https://jsonplaceholder.typicode.com/todos/1")
+  console.log(process.env)
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hello`)
   const body = await response.json()
+
   return {
     props: {
       data,
